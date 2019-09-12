@@ -1,0 +1,5 @@
+trigger: ["master"]
+pr: ["master"]
+
+stages:
+- template: ci/stage-all.yml

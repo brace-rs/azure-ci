@@ -1,0 +1,6 @@
+stages:
+- stage: test
+  displayName: Test
+  dependsOn: []
+  jobs:
+  - template: job-test-rust.yml

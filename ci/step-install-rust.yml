@@ -1,0 +1,22 @@
+parameters:
+  toolchain: stable
+
+steps:
+- script: |
+    set -e
+    curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain none
+    echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
+  displayName: Install rust
+
+- script: |
+    rustup install "$RUSTUP_TOOLCHAIN"
+    rustup default "$RUSTUP_TOOLCHAIN"
+  displayName: Install toolchain
+  env:
+    RUSTUP_TOOLCHAIN: ${{ parameters.toolchain }}
+
+- script: |
+    rustc -Vv
+    rustup -V
+    cargo -V
+  displayName: Query versions
