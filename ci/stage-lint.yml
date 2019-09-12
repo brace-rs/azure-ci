@@ -1,0 +1,6 @@
+stages:
+- stage: lint
+  displayName: Lint
+  dependsOn: []
+  jobs:
+  - template: job-lint-rust.yml
