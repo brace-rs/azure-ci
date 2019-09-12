@@ -1,5 +1,6 @@
 parameters:
   toolchain: stable
+  components: []
 
 steps:
 - script: |
@@ -15,8 +16,13 @@ steps:
   env:
     RUSTUP_TOOLCHAIN: ${{ parameters.toolchain }}
 
+- ${{ each component in parameters.components }}:
+  - script: rustup component add ${{ component }}
+    displayName: Install ${{ component }}
+
 - script: |
     rustc -Vv
     rustup -V
     cargo -V
+    rustup component list --installed
   displayName: Query versions
