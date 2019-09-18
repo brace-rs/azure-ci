@@ -9,12 +9,16 @@ steps:
     echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
   displayName: Install rust
 
-- script: |
+- bash: |
+    if [ "$RUSTUP_TOOLCHAIN" = "file" ]; then
+      RUSTUP_TOOLCHAIN="$(<$RUSTUP_TOOLCHAIN_FILE)"
+    fi
     rustup install "$RUSTUP_TOOLCHAIN"
     rustup default "$RUSTUP_TOOLCHAIN"
   displayName: Install toolchain
   env:
     RUSTUP_TOOLCHAIN: ${{ parameters.toolchain }}
+    RUSTUP_TOOLCHAIN_FILE: $(System.DefaultWorkingDirectory)/rust-toolchain
 
 - ${{ each component in parameters.components }}:
   - script: rustup component add ${{ component }}
