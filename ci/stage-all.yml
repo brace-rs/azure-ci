@@ -1,3 +1,11 @@
+parameters:
+  toolchain: stable
+
 stages:
 - template: stage-lint.yml
+  parameters:
+    toolchain: ${{ parameters.toolchain }}
+
 - template: stage-test.yml
+  parameters:
+    toolchain: ${{ parameters.toolchain }}

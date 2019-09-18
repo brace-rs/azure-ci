@@ -1,11 +1,9 @@
 parameters:
-  name: lint_rust_stable
-  label: Rust (stable)
   toolchain: stable
 
 jobs:
-- job: ${{ parameters.name }}
-  displayName: ${{ parameters.label }}
+- job: ${{ format('lint_rust_{0}', parameters.toolchain) }}
+  displayName: ${{ format('Rust ({0})', parameters.toolchain) }}
   pool:
     vmImage: ubuntu-16.04
   steps:

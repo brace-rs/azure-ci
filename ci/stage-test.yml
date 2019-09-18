@@ -1,6 +1,11 @@
+parameters:
+  toolchain: stable
+
 stages:
 - stage: test
   displayName: Test
   dependsOn: []
   jobs:
   - template: job-test-rust.yml
+    parameters:
+      toolchain: ${{ parameters.toolchain }}
